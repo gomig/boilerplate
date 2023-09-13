@@ -9,7 +9,7 @@ func RegisterRoutes(router *fiber.App) {
 	// Routes
 	router.Get("/thumb/*", Thumbnail)
 	router.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Welcome to gomig app")
+		return c.SendString("Welcome to Mig app")
 	})
 
 	// Fallback
