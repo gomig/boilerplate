@@ -1,0 +1,3 @@
+{{define "base"}}
+    <p>template must defined inside base block!</p>
+{{end}}

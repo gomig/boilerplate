@@ -1,0 +1,24 @@
+[Unit]
+Description=// {{.name}}
+ConditionPathExists=/var/www/// {{.name}}
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+LimitNOFILE=1024
+
+Restart=on-failure
+RestartSec=10
+
+WorkingDirectory=/var/www
+ExecStart=/usr/bin/sudo /var/www/// {{.name}} serve
+
+PermissionsStartOnly=true
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=// {{.name}}
+
+[Install]
+WantedBy=multi-user.target

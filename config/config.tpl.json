@@ -1,0 +1,40 @@
+{
+    "prod": false,
+    // {{if eq .cache "redis"}}
+    "redis": {
+        "host": "localhost:6379",
+        "cache_db": 1
+    },
+    // {{end}}
+    // {{if eq .database "mongo"}}
+    "database": {
+        "name": "// {{.name}}",
+        "ttl": 10,
+        "port": 27017,
+        "replicaSet": ""
+    },
+    // {{end}}
+    // {{if eq .database "mysql"}}
+    "database": {
+        "name": "// {{.name}}"
+    },
+    // {{end}}
+    // {{if eq .web "y"}}
+    "web": {
+        "ssl": false,
+        "log": true,
+        "port": 8888,
+        "limit": 60,
+        "public": "./public"
+    },
+    // {{end}}
+    // {{if eq .template "y"}}
+    "view": {
+        "base": "./views",
+        "shared": ["./views/shared"],
+        "extension": "tpl",
+        "delim_left":"{{",
+        "delim_right":"}}"
+    }
+    // {{end}}
+}

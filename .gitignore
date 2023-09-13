@@ -1,0 +1,9 @@
+/node_modules
+/data
+/.idea
+/.vscode
+/.vagrant
+/.logs
+/.cache
+/.storage
+/.dev
