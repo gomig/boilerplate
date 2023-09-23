@@ -83,5 +83,5 @@ func Thumbnail(c *fiber.Ctx) error {
 		utils.PanicOnError(png.Encode(&buf, _thumb))
 	}
 	c.Set(fiber.HeaderContentType, utils.If(mime.Is("image/jpeg"), "image/jpeg", "image/png"))
-	return c.Status(304).Send(buf.Bytes())
+	return c.Send(buf.Bytes())
 }
