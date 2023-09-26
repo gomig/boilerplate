@@ -208,6 +208,19 @@ func init() {
 		return template.HTMLAttr(v)
 	}
 
+	// attrs generate html attributes from parameters
+	// example: attrs "id:test" "class:first second third"
+	_pipes["attrs"] = func(attr ...string) template.HTMLAttr {
+		res := ""
+		for _, at := range attr {
+			parts := strings.Split(at, ":")
+			if len(parts) == 2 {
+				res += parts[0] + "=\"" + parts[1] + "\""
+			}
+		}
+		return template.HTMLAttr(res)
+	}
+
 	// js return renderable raw js (no escape)
 	_pipes["js"] = func(v string) template.JS {
 		return template.JS(v)
