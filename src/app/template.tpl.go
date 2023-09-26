@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gomig/caster"
 	"github.com/gomig/jalaali"
 	"github.com/gomig/utils"
 	"github.com/google/uuid"
@@ -73,26 +74,24 @@ func init() {
 	}
 
 	// numberF format number
-	_pipes["numberF"] = func(format string, v ...any) string {
-		return utils.FormatNumber(format, v...)
+	_pipes["numberF"] = func(format any, v ...any) string {
+		return utils.FormatNumber(caster.NewCaster(format).StringSafe(fmt.Sprint(format)), v...)
 	}
 
 	// regexF format data using regex
-	_pipes["regexF"] = func(data, pattern, repl string) string {
-		return utils.FormatRx(data, pattern, repl)
+	_pipes["regexF"] = func(data any, pattern, repl string) string {
+		return utils.FormatRx(caster.NewCaster(data).StringSafe(fmt.Sprint(data)), pattern, repl)
 	}
 
 	// size format file size
-	_pipes["sizeF"] = func(size float64) string {
-		return fmt.Sprint(bytesize.New(size))
+	_pipes["sizeF"] = func(size any) string {
+		return fmt.Sprint(bytesize.New(caster.NewCaster(size).Float64Safe(0)))
 	}
 
-	// {{if eq .locale "fa"}}
 	// jalaali format jalaali date
 	_pipes["jalaali"] = func(format string, t time.Time) string {
 		return jalaali.NewTehran(t).Format(format)
 	}
-	// {{ end }}
 
 	// json get json encoded value
 	_pipes["json"] = func(data any, fallback string) string {
@@ -101,21 +100,6 @@ func init() {
 			return string(bytes)
 		}
 		return fallback
-	}
-
-	// jsonFrom get json object from values
-	_pipes["jsonFrom"] = func(values ...any) string {
-		if len(values) > 0 && len(values)%2 == 0 {
-			res := "{"
-			for i := 0; i < len(values); i += 2 {
-				res += fmt.Sprintf("'%s':", values[i]) + fmt.Sprint(values[i+1])
-				if i+2 < len(values) {
-					res += ","
-				}
-			}
-			return res + "}"
-		}
-		return "{}"
 	}
 
 	// map generate map from key value pairs
@@ -187,7 +171,6 @@ func init() {
 		return confOrPanic().Cast(path)
 	}
 
-	// {{if eq .web "y"}}
 	// linebreak convert new line to br
 	_pipes["linebreak"] = func(s string) template.HTML {
 		return template.HTML(strings.ReplaceAll(s, "\n", "<br />"))
@@ -236,6 +219,7 @@ func init() {
 		return template.URL(v)
 	}
 
+	// {{if eq .web "y"}}
 	// asset find asset url
 	// example: asset "dist/js" "vendor-" "" "js"
 	_pipes["asset"] = func(path, pattern, ignore, ext string) string {
