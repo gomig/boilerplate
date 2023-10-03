@@ -88,6 +88,7 @@ func SecureScripts(data string, trim bool) string {
 func NormalizeHtmlText(v string) string {
 	var patterns = map[string]string{
 		"&#39;":   "'",
+		"&#34;":   "\"",
 		"&#180;":  "´",
 		"&#38;":   "&",
 		"&#169;":  "©",
