@@ -15,18 +15,14 @@ func SetupMongoDB() {
 	host := conf.Cast("mongo.conStr").StringSafe("")
 	db := conf.Cast("database.name").StringSafe("// {{.name}}")
 
-	if client, err := mongo.NewClient(options.Client().ApplyURI(host)); err != nil {
+	ctx, cancel := MongoOperationCtx()
+	defer cancel()
+	if client, err := mongo.Connect(ctx, options.Client().ApplyURI(host)); err != nil {
 		panic(err)
 	} else {
-		ctx, cancel := MongoOperationCtx()
-		defer cancel()
-		if err := client.Connect(ctx); err != nil {
-			panic(err)
-		} else {
-			db := client.Database(db)
-			_container.Register("--APP-MONGO-CLIENT", client)
-			_container.Register("--APP-MONGO-DB", db)
-		}
+		db := client.Database(db)
+		_container.Register("--APP-MONGO-CLIENT", client)
+		_container.Register("--APP-MONGO-DB", db)
 	}
 }
 
