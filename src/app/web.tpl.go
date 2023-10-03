@@ -83,3 +83,26 @@ func SecureScripts(data string, trim bool) string {
 	}
 	return res
 }
+
+// NormalizeHtmlText normalize escaped html text
+func NormalizeHtmlText(v string) string {
+	var patterns = map[string]string{
+		"&#39;":   "'",
+		"&#180;":  "´",
+		"&#38;":   "&",
+		"&#169;":  "©",
+		"&#186;":  "°",
+		"&#8363;": "€",
+		"&#171;":  "«",
+		"&#215;":  "x",
+		"&#8220;": "“",
+		"&#8221;": "”",
+		"&#174;":  "®",
+		"&#187;":  "»",
+		"&#8482;": "™",
+	}
+	for code, character := range patterns {
+		v = strings.ReplaceAll(v, code, character)
+	}
+	return v
+}
