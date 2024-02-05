@@ -9,7 +9,7 @@ $Env:GOOS = "linux"; $Env:GOARCH = "amd64"
 go build
 ```
 
-{{ if eq .web y}}
+{{ if eq .web "y"}}
 ## Create Web Layout
 
 For creating base web layout template use following syntax: (`/views/Layout.tpl`)
