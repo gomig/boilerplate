@@ -262,11 +262,11 @@ func tplExt() string {
 }
 
 func tplDLeft() string {
-	return Config().Cast("view.delim_left").StringSafe("{{")
+	return Config().Cast("view.delim_left").StringSafe("{{ `{{` }}")
 }
 
 func tplDRight() string {
-	return Config().Cast("view.delim_right").StringSafe("}}")
+	return Config().Cast("view.delim_right").StringSafe("{{ `}}` }}")
 }
 
 func tplPath(parts ...string) string {
