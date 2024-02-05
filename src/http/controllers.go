@@ -1,11 +1,11 @@
 package http
 
 import (
+	"__ns__/src/app"
 	"bytes"
 	"image"
 	"image/jpeg"
 	"image/png"
-	"mekramy/__boiler/src/app"
 	"os"
 	"strings"
 

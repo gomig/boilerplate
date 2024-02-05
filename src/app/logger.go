@@ -14,7 +14,7 @@ func SetupLogger() {
 
 	// Crash logger
 	_crLogger := logger.NewLogger("2006-01-02 15:04:05", DateFormatter())
-	_crLogger.AddWriter("main", logger.NewFileLogger(LogPath("crash"), "crash", "2006-01-02", DateFormatter()))
+	_crLogger.AddWriter("main", logger.NewFileLogger(LogPath("crash"), "crash", "2006-01", DateFormatter()))
 	if onDev {
 		_crLogger.AddWriter("dev", os.Stdout)
 	}

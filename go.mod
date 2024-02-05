@@ -1,4 +1,4 @@
-module mekramy/__boiler
+module __ns__
 
 go 1.21
 

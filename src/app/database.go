@@ -8,10 +8,10 @@ import (
 // SetupDatabase driver
 func SetupDatabase() {
 	conf := Config()
-	host := conf.Cast("mysql.host").StringSafe("")
-	username := conf.Cast("mysql.username").StringSafe("root")
-	password := conf.Cast("mysql.password").StringSafe("")
-	db := conf.Cast("database.name").StringSafe("// {{.name}}")
+	host := conf.Cast("database.host").StringSafe("localhost")
+	username := conf.Cast("database.username").StringSafe("root")
+	password := conf.Cast("database.password").StringSafe("")
+	db := conf.Cast("database.name").StringSafe("{{ .name }}")
 
 	if db, err := database.NewMySQLConnector(host, username, password, db); err == nil {
 		_container.Register("--APP-DB", db)

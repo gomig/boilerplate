@@ -13,7 +13,7 @@ import (
 func SetupMongoDB() {
 	conf := Config()
 	host := conf.Cast("mongo.conStr").StringSafe("")
-	db := conf.Cast("database.name").StringSafe("// {{.name}}")
+	db := conf.Cast("database.name").StringSafe("{{ .name }}")
 
 	ctx, cancel := MongoOperationCtx()
 	defer cancel()

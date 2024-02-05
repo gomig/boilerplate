@@ -9,22 +9,17 @@ func SetupConfig() {
 		_container.Register("--APP-CONFIG", c)
 	} else {
 		panic(err)
-	}
-	// {{end}}
-	// {{if eq .config "json"}}
+	} // {{else if eq .config "json"}}
 	if c, err := config.NewJSONConfig(ConfigPath("config.json")); err == nil {
 		_container.Register("--APP-CONFIG", c)
 	} else {
 		panic(err)
-	}
-	// {{end}}
-	// {{if eq .config "memory"}}
+	} // {{else if eq .config "memory"}}
 	if c, err := config.NewMemoryConfig(nil); err == nil {
 		_container.Register("--APP-CONFIG", c)
 	} else {
 		panic(err)
-	}
-	// {{end}}
+	} // {{end}}
 }
 
 // Config get config manager

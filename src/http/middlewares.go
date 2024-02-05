@@ -1,7 +1,7 @@
 package http
 
 import (
-	"mekramy/__boiler/src/app"
+	"__ns__/src/app"
 	"time"
 
 	"github.com/gofiber/fiber/v2"

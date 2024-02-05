@@ -219,7 +219,6 @@ func init() {
 		return template.URL(v)
 	}
 
-	// {{if eq .web "y"}}
 	// asset find asset url
 	// example: asset "dist/js" "vendor-" "" "js"
 	_pipes["asset"] = func(path, pattern, ignore, ext string) string {
@@ -248,7 +247,6 @@ func init() {
 		}
 		return files
 	}
-	// {{ end }}
 }
 
 func tplBase() string {
@@ -326,7 +324,6 @@ func CompileView(view, layout string, data map[string]any) (string, error) {
 	return writer.String(), nil
 }
 
-// {{if eq .web "y"}}
 // Render render template to response
 func Render(c *fiber.Ctx, view, layout string, data map[string]any, status int) error {
 	compiled, err := CompileView(view, layout, data)
@@ -336,5 +333,3 @@ func Render(c *fiber.Ctx, view, layout string, data map[string]any, status int) 
 	c.Set(fiber.HeaderContentType, fiber.MIMETextHTMLCharsetUTF8)
 	return c.Status(status).SendString(compiled)
 }
-
-// {{end}}

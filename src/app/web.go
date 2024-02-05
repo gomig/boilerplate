@@ -19,7 +19,7 @@ func SetupWeb(onError httput.ErrorCallback) {
 	server := fiber.New(fiber.Config{
 		DisableStartupMessage: IsProd(),
 		ErrorHandler:          httput.ErrorLogger(erLogger, DateFormatter(), onError),
-		ProxyHeader:           "X-Forwarded-For",
+		ProxyHeader:           fiber.HeaderXForwardedFor,
 	})
 	_container.Register("--APP-SERVER", server)
 }

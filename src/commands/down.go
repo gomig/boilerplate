@@ -1,8 +1,8 @@
 package commands
 
 import (
+	"__ns__/src/app"
 	"fmt"
-	"mekramy/__boiler/src/app"
 
 	"github.com/spf13/cobra"
 )

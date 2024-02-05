@@ -13,7 +13,7 @@ var _cli cli.CLI
 
 func init() {
 	_container = container.NewContainer()
-	_cli = cli.NewCLI("// {{.name}}", "// {{.description}}")
+	_cli = cli.NewCLI("{{ .name }}", "{{ .desc }}")
 }
 
 // Container get app main container

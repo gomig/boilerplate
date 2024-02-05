@@ -1,25 +1,27 @@
 {
     "prod": false,
-    // {{if eq .cache "redis"}}
+    {{if eq .cache "redis"}}
     "redis": {
         "host": "localhost:6379",
         "cache_db": 1
     },
-    // {{end}}
-    // {{if eq .database "mongo"}}
+    {{end}}
+    {{if eq .database "mongo"}}
     "database": {
-        "name": "// {{.name}}",
+        "name": "{{ .name }}",
         "ttl": 10,
         "port": 27017,
-        "replicaSet": ""
+        "replica_set": ""
     },
-    // {{end}}
-    // {{if eq .database "mysql"}}
+    {{else if eq .database "mysql"}}
     "database": {
-        "name": "// {{.name}}"
+        "name": "{{ .name }}",
+        "host": "127.0.0.1",
+        "username": "root",
+        "password": ""
     },
-    // {{end}}
-    // {{if eq .web "y"}}
+    {{end}}
+    {{if eq .web "y"}}
     "web": {
         "ssl": false,
         "log": true,
@@ -27,8 +29,6 @@
         "limit": 60,
         "public": "./public"
     },
-    // {{end}}
-    // {{if eq .template "y"}}
     "view": {
         "base": "./views",
         "shared": ["./views/shared"],
@@ -36,5 +36,5 @@
         "delim_left":"{{",
         "delim_right":"}}"
     }
-    // {{end}}
+    {{end}}
 }

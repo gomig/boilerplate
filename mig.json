@@ -1,0 +1,85 @@
+{
+    "name": "GoMig",
+    "intro": "You need git and go installed on your system.\nPlease select your preferred configuration:\n\n",
+    "message": "Visit github.com/gomig/boilerplate for usage guide",
+    "rules": [
+        {
+            "name": "desc",
+            "placeholder": "__desc__",
+            "desc": "description"
+        },
+        {
+            "name": "namespace",
+            "placeholder": "__ns__",
+            "desc": "namespace"
+        },
+        {
+            "name": "locale",
+            "placeholder": "__locale__",
+            "desc": "app locale",
+            "default": "fa"
+        },
+        {
+            "name": "config",
+            "default": "json",
+            "desc": "configuration driver",
+            "options": ["env", "json", "memory"],
+            "files": {
+                "env": ["config/config.env"],
+                "json": ["config/config.json"]
+            }
+        },
+        {
+            "name": "cache",
+            "default": "redis",
+            "desc": "cache driver",
+            "options": ["file", "redis"],
+            "files": {
+                "file": ["src/commands/cleanup.go"]
+            }
+        },
+        {
+            "name": "translator",
+            "default": "memory",
+            "desc": "translator driver",
+            "options": ["json", "memory"],
+            "files": {
+                "json": ["config/strings/__locale__"]
+            }
+        },
+        {
+            "name": "database",
+            "default": "mongo",
+            "desc": "database driver",
+            "options": ["mongo", "mysql", "none"],
+            "files": {
+                "mysql": ["database", "src/app/database.go"],
+                "mongo": ["src/app/mongo.go"]
+            }
+        },
+        {
+            "name": "web",
+            "default": "y",
+            "desc": "include web (gofiber)",
+            "options": ["y", "n"],
+            "files": {
+                "y": [
+                    "public",
+                    "src/http",
+                    "src/commands/serve.go",
+                    "src/app/template.go",
+                    "src/app/web.go"
+                ]
+            }
+        }
+    ],
+    "statics": ["database", "public", ".editorconfig", ".gitignore"],
+    "ignores": ["LICENSE", "README.md"],
+    "scripts": [
+        ["go", "mod", "tidy"],
+        ["go", "fmt", "./..."],
+        ["git", "init"],
+        ["git", "add", "."],
+        ["git", "commit", "-m", "'initialize app'"]
+    ]
+}

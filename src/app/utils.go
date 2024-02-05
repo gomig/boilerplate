@@ -7,8 +7,7 @@ import (
 	"github.com/gomig/logger"
 
 	// {{if eq .database "mysql"}}
-	"github.com/jmoiron/sqlx"
-	// {{end}}
+	"github.com/jmoiron/sqlx" // {{end}}
 )
 
 func confOrPanic() config.Config {
@@ -37,7 +36,9 @@ func CacheResolver(driver string) cache.Cache {
 
 // DateFormatter get default app date formatter
 func DateFormatter() logger.TimeFormatter {
-	// {{if eq .locale "fa"}}return logger.JalaaliFormatter// {{else}}
+	// {{if eq .locale "fa"}}
+	//- return logger.JalaaliFormatter
+	// {{else}}
 	return logger.GregorianFormatter // {{end}}
 }
 
