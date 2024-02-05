@@ -59,7 +59,7 @@ func main() {
 	app.CLI().AddCommand(commands.ServeCommand)
 	// {{end}}
 
-	// {{ if eq .cache "file" }
+	// {{ if eq .cache "file" }}
 	// Setup cache
 	app.CLI().AddCommand(commands.CleanupCommand) // {{ end }}
 
