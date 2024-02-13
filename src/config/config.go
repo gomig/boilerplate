@@ -12,7 +12,7 @@ func Configure(config config.Config) {
 	config.Set("name", "<% .name %>")
 	config.Set("locale", "<% .locale %>")
 	config.Set("key", "<% .key %>")
-	config.Set("mc_key", "<% .key64 %>")
+	config.Set("mc_key", "<% key64 %>")
 	// <%if eq .database "mongo"%>
 	rs := config.Cast("database.replica_set").StringSafe("")
 	if rs != "" {
