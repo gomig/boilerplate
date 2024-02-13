@@ -11,7 +11,7 @@ func SetupDatabase() {
 	host := conf.Cast("database.host").StringSafe("localhost")
 	username := conf.Cast("database.username").StringSafe("root")
 	password := conf.Cast("database.password").StringSafe("")
-	db := conf.Cast("database.name").StringSafe("{{ .name }}")
+	db := conf.Cast("database.name").StringSafe("<% .name %>")
 
 	if db, err := database.NewMySQLConnector(host, username, password, db); err == nil {
 		_container.Register("--APP-DB", db)

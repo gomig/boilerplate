@@ -1,6 +1,6 @@
 [Unit]
-Description={{ .name }}
-ConditionPathExists=/var/www/{{ .name }}
+Description=<% .name %>
+ConditionPathExists=/var/www/<% .name %>
 After=network.target
 
 [Service]
@@ -12,13 +12,13 @@ LimitNOFILE=1024
 Restart=on-failure
 RestartSec=10
 
-WorkingDirectory=/var/www/{{ .name }}
-ExecStart=/usr/bin/sudo /var/www/{{ .name }}/{{ .name }} serve
+WorkingDirectory=/var/www/<% .name %>
+ExecStart=/usr/bin/sudo /var/www/<% .name %>/<% .name %> serve
 
 PermissionsStartOnly=true
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier={{ .name }}
+SyslogIdentifier=<% .name %>
 
 [Install]
 WantedBy=multi-user.target

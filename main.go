@@ -6,15 +6,15 @@ import (
 	"__ns__/src/config"
 	"os"
 
-	// {{if eq .web "y"}}
+	// <%if eq .web "y"%>
 	"__ns__/src/http"
 
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gomig/http/middlewares"
-	"github.com/gomig/logger" // {{end}}
+	"github.com/gomig/logger" // <%end%>
 
-	// {{if eq .database "mysql"}}
-	"github.com/gomig/database/migration" // {{end}}
+	// <%if eq .database "mysql"%>
+	"github.com/gomig/database/migration" // <%end%>
 )
 
 func main() {
@@ -27,25 +27,25 @@ func main() {
 	config.ConfigureMessages(app.Translator())
 	app.SetupValidator()
 
-	// {{if eq .database "mysql"}}
+	// <%if eq .database "mysql"%>
 	// Config SQL
 	app.SetupDatabase()
 	defer app.Database().Close()
 	app.CLI().AddCommand(migration.MigrationCommand(app.DatabaseResolver, "--APP-DB", "./database/migrations", "./database/seeds"))
-	// {{ else if eq .database "mongo"}}
+	// <% else if eq .database "mongo"%>
 	// Config Mongo
 	app.SetupMongoDB()
 	ctx, cancel := app.MongoOperationCtx()
 	defer cancel()
 	defer app.MongoClient().Disconnect(ctx)
-	// {{end}}
+	// <%end%>
 
-	// {{if eq .web "y"}}
+	// <%if eq .web "y"%>
 	// Config Web
 	app.SetupWeb(http.OnError)
 	app.Server().Use(recover.New())
 	if app.Config().Cast("web.log").BoolSafe(false) {
-		appName := app.Config().Cast("name").StringSafe("{{ .name }}")
+		appName := app.Config().Cast("name").StringSafe("<% .name %>")
 		_logger := logger.NewLogger("2006-01-02 15:04:05", app.DateFormatter())
 		_logger.AddWriter("main", logger.NewFileLogger(app.LogPath("access"), appName, "2006-01-02", app.DateFormatter()))
 		if !app.IsProd() {
@@ -57,11 +57,11 @@ func main() {
 	http.RegisterGlobalMiddlewares(app.Server())
 	http.RegisterRoutes(app.Server())
 	app.CLI().AddCommand(commands.ServeCommand)
-	// {{end}}
+	// <%end%>
 
-	// {{ if eq .cache "file" }}
+	// <% if eq .cache "file" %>
 	// Setup cache
-	app.CLI().AddCommand(commands.CleanupCommand) // {{ end }}
+	app.CLI().AddCommand(commands.CleanupCommand) // <% end %>
 
 	// Register base commands and run app
 	app.CLI().AddCommand(commands.HashCommand(app.CryptoResolver, "--APP-CRYPTO"))

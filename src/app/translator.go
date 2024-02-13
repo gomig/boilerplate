@@ -7,19 +7,19 @@ import (
 // SetupTranslator driver
 func SetupTranslator() {
 	conf := confOrPanic()
-	appLocale := conf.Cast("locale").StringSafe("{{ .locale }}")
+	appLocale := conf.Cast("locale").StringSafe("<% .locale %>")
 
-	// {{if eq .translator "json"}}
+	// <%if eq .translator "json"%>
 	if t, err := translator.NewJSONTranslator(appLocale, ConfigPath("strings")); err == nil {
 		_container.Register("--APP-TRANSLATOR", t)
 	} else {
 		panic("failed to build json translator driver")
-	} // {{else}}
+	} // <%else%>
 	if t := translator.NewMemoryTranslator(appLocale); t != nil {
 		_container.Register("--APP-TRANSLATOR", t)
 	} else {
 		panic("failed to build translator driver")
-	} // {{end}}
+	} // <%end%>
 }
 
 // Translator get translator driver

@@ -1,27 +1,27 @@
 {
     "prod": false,
-    {{if eq .cache "redis"}}
+    <%if eq .cache "redis"%>
     "redis": {
         "host": "localhost:6379",
         "cache_db": 1
     },
-    {{end}}
-    {{if eq .database "mongo"}}
+    <%end%>
+    <%if eq .database "mongo"%>
     "database": {
-        "name": "{{ .name }}",
+        "name": "<% .name %>",
         "ttl": 10,
         "port": 27017,
         "replica_set": ""
     },
-    {{else if eq .database "mysql"}}
+    <%else if eq .database "mysql"%>
     "database": {
-        "name": "{{ .name }}",
+        "name": "<% .name %>",
         "host": "127.0.0.1",
         "username": "root",
         "password": ""
     },
-    {{end}}
-    {{if eq .web "y"}}
+    <%end%>
+    <%if eq .web "y"%>
     "web": {
         "ssl": false,
         "log": true,
@@ -33,8 +33,8 @@
         "base": "./views",
         "shared": ["./views/shared"],
         "extension": "tpl",
-        "delim_left":"{{ `{{` }}",
-        "delim_right":"{{ `}}` }}"
+        "delim_left":"{{",
+        "delim_right":"}}"
     }
-    {{end}}
+    <%end%>
 }

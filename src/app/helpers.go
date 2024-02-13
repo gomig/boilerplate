@@ -29,11 +29,11 @@ func StoragePath(sub ...string) string {
 	return NormalizeURI(path.Join(append([]string{".", ".storage"}, sub...)...))
 }
 
-// {{if eq .web "y"}}
+// <%if eq .web "y"%>
 // PublicPath get public path
 func PublicPath(sub ...string) string {
 	return NormalizeURI(path.Join(append([]string{".", confOrPanic().Cast("web.public").StringSafe("./public")}, sub...)...))
-} // {{ end }}
+} // <% end %>
 
 // UniqueFile generate unique hashed filename
 func UniqueFile(name string, params ...string) string {
@@ -82,7 +82,7 @@ func NowPtr() *time.Time {
 	return &t
 }
 
-// {{if eq .locale "fa"}}
+// <%if eq .locale "fa"%>
 // JTime set jalaali time to date
 //
 // pass -1 to ignore params
@@ -92,7 +92,7 @@ func JTime(time time.Time, hour int, min int, sec int) time.Time {
 	jTime.SetMinute(utils.If(min == -1, jTime.Minute(), min))
 	jTime.SetSecond(utils.If(sec == -1, jTime.Second(), sec))
 	return jTime.Time()
-} // {{ end }}
+} // <% end %>
 
 // IsProd check if project run on production mode
 func IsProd() bool {

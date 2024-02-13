@@ -6,8 +6,8 @@ import (
 	"github.com/gomig/crypto"
 	"github.com/gomig/logger"
 
-	// {{if eq .database "mysql"}}
-	"github.com/jmoiron/sqlx" // {{end}}
+	// <%if eq .database "mysql"%>
+	"github.com/jmoiron/sqlx" // <%end%>
 )
 
 func confOrPanic() config.Config {
@@ -36,10 +36,10 @@ func CacheResolver(driver string) cache.Cache {
 
 // DateFormatter get default app date formatter
 func DateFormatter() logger.TimeFormatter {
-	// {{if eq .locale "fa"}}
+	// <%if eq .locale "fa"%>
 	//- return logger.JalaaliFormatter
-	// {{else}}
-	return logger.GregorianFormatter // {{end}}
+	// <%else%>
+	return logger.GregorianFormatter // <%end%>
 }
 
 // IsUnderMaintenance check if under maintenance mode
@@ -47,8 +47,8 @@ func IsUnderMaintenance() (bool, error) {
 	return cacheOrPanic().Exists("maintenance")
 }
 
-// {{if eq .database "mysql"}}
+// <%if eq .database "mysql"%>
 // DatabaseResolver resolve database driver by name
 func DatabaseResolver(driver string) *sqlx.DB {
 	return Database(driver)
-} // {{end}}
+} // <%end%>

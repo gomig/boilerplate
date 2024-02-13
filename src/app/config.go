@@ -4,22 +4,22 @@ import "github.com/gomig/config"
 
 // SetupConfig driver
 func SetupConfig() {
-	// {{if eq .config "env"}}
+	// <%if eq .config "env"%>
 	if c, err := config.NewEnvConfig(ConfigPath("config.env")); err == nil {
 		_container.Register("--APP-CONFIG", c)
 	} else {
 		panic(err)
-	} // {{else if eq .config "json"}}
+	} // <%else if eq .config "json"%>
 	if c, err := config.NewJSONConfig(ConfigPath("config.json")); err == nil {
 		_container.Register("--APP-CONFIG", c)
 	} else {
 		panic(err)
-	} // {{else if eq .config "memory"}}
+	} // <%else if eq .config "memory"%>
 	if c, err := config.NewMemoryConfig(nil); err == nil {
 		_container.Register("--APP-CONFIG", c)
 	} else {
 		panic(err)
-	} // {{end}}
+	} // <%end%>
 }
 
 // Config get config manager
