@@ -50,7 +50,8 @@ func IsUnderMaintenance() (bool, error) {
 // <%if oneOf .database "mysql|postgres" %>
 // DatabaseResolver resolve database driver by name
 func DatabaseResolver(driver string) *sqlx.DB {
-	// <%if eq .database "mysql"%>return MySQL(driver)
+	// <%if eq .database "mysql"%>
+	//- return MySQL(driver)
 	// <% else %>
-	return Postgres(driver)
+	return Postgres(driver) // <%end%>
 } // <%end%>
