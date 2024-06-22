@@ -5,8 +5,8 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-// SetupDatabase driver
-func SetupDatabase() {
+// SetupMySQL driver
+func SetupMySQL() {
 	conf := Config()
 	host := conf.Cast("database.host").StringSafe("localhost")
 	username := conf.Cast("database.username").StringSafe("root")
@@ -20,9 +20,9 @@ func SetupDatabase() {
 	}
 }
 
-// Database get database driver
+// MySQL get database driver
 // leave name empty to resolve default
-func Database(names ...string) *sqlx.DB {
+func MySQL(names ...string) *sqlx.DB {
 	name := "--APP-DB"
 	if len(names) > 0 {
 		name = names[0]

@@ -51,9 +51,10 @@
             "name": "database",
             "default": "mongo",
             "desc": "database driver",
-            "options": ["mongo", "mysql", "none"],
+            "options": ["mongo", "mysql", "postgres", "none"],
             "files": {
-                "mysql": ["database", "src/app/database.go"],
+                "mysql": ["database", "src/app/mysql.go"],
+                "postgres": ["database", "src/app/postgres.go"],
                 "mongo": ["src/app/mongo.go"]
             }
         },

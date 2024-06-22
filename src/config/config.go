@@ -22,6 +22,11 @@ func Configure(config config.Config) {
 	} // <%else if eq .database "mysql"%>
 	config.Set("database.host", "")
 	config.Set("database.username", "root")
-	config.Set("database.password", "root")
+	config.Set("database.password", "")
+	// <%else if eq .database "postgres"%>
+	config.Set("database.host", "")
+	config.Set("database.username", "postgres")
+	config.Set("database.password", "")
+	config.Set("database.port", "")
 	// <%end%>
 }

@@ -13,7 +13,7 @@ import (
 	"github.com/gomig/http/middlewares"
 	"github.com/gomig/logger" // <%end%>
 
-	// <%if eq .database "mysql"%>
+	// <%if oneOf .database "mysql|postgres" %>
 	"github.com/gomig/database/migration" // <%end%>
 )
 
@@ -28,9 +28,14 @@ func main() {
 	app.SetupValidator()
 
 	// <%if eq .database "mysql"%>
-	// Config SQL
-	app.SetupDatabase()
-	defer app.Database().Close()
+	// Config MySQL
+	app.SetupMySQL()
+	defer app.MySQL().Close()
+	app.CLI().AddCommand(migration.MigrationCommand(app.DatabaseResolver, "--APP-DB", "./database/migrations", "./database/seeds"))
+	// <% else if eq .database "postgres"%>
+	// Config Postgres
+	app.SetupPostgres()
+	defer app.Postgres().Close()
 	app.CLI().AddCommand(migration.MigrationCommand(app.DatabaseResolver, "--APP-DB", "./database/migrations", "./database/seeds"))
 	// <% else if eq .database "mongo"%>
 	// Config Mongo

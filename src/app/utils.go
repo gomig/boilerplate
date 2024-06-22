@@ -6,7 +6,7 @@ import (
 	"github.com/gomig/crypto"
 	"github.com/gomig/logger"
 
-	// <%if eq .database "mysql"%>
+	// <%if oneOf .database "mysql|postgres" %>
 	"github.com/jmoiron/sqlx" // <%end%>
 )
 
@@ -47,8 +47,10 @@ func IsUnderMaintenance() (bool, error) {
 	return cacheOrPanic().Exists("maintenance")
 }
 
-// <%if eq .database "mysql"%>
+// <%if oneOf .database "mysql|postgres" %>
 // DatabaseResolver resolve database driver by name
 func DatabaseResolver(driver string) *sqlx.DB {
-	return Database(driver)
+	// <%if eq .database "mysql"%>return MySQL(driver)
+	// <% else %>
+	return Postgres(driver)
 } // <%end%>

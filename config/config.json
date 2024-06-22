@@ -20,6 +20,14 @@
         "username": "root",
         "password": ""
     },
+    <%else if eq .database "postgres"%>
+    "database": {
+        "name": "<% .name %>",
+        "host": "127.0.0.1",
+        "username": "postgres",
+        "password": "",
+        "port": ""
+    },
     <%end%>
     <%if eq .web "y"%>
     "web": {
