@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/gomig/database"
+	"github.com/gomig/database/v2"
 	"github.com/jmoiron/sqlx"
 )
 

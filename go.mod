@@ -14,7 +14,7 @@ require (
 	github.com/gomig/config v1.0.0
 	github.com/gomig/container v1.0.0
 	github.com/gomig/crypto v1.0.0
-	github.com/gomig/database v1.1.2
+	github.com/gomig/database/v2 v2.0.0
 	github.com/gomig/http v1.0.1
 	github.com/gomig/jalaali v1.0.0
 	github.com/gomig/logger v1.0.0
@@ -26,8 +26,8 @@ require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/microcosm-cc/bluemonday v1.0.26
 	github.com/spf13/cobra v1.8.1
-	go.mongodb.org/mongo-driver v1.15.1
-	golang.org/x/image v0.17.0
+	go.mongodb.org/mongo-driver v1.16.0
+	golang.org/x/image v0.18.0
 )
 
 require (
@@ -42,7 +42,6 @@ require (
 	github.com/go-playground/validator/v10 v10.22.0 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
