@@ -32,6 +32,11 @@ func StoragePath(sub ...string) string {
 	return NormalizeURI(path.Join(append([]string{".", ".storage"}, sub...)...))
 }
 
+// DatabasePath get storage path
+func DatabasePath(sub ...string) string {
+	return NormalizeURI(path.Join(append([]string{".", "database"}, sub...)...))
+}
+
 // <%if eq .web "y"%>
 // PublicPath get public path
 func PublicPath(sub ...string) string {
