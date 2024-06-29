@@ -1,13 +1,15 @@
 package app
 
 import (
+	"regexp"
+	"strconv"
+	"strings"
+
 	"github.com/gomig/cache"
 	"github.com/gomig/config"
 	"github.com/gomig/crypto"
 	"github.com/gomig/logger"
-
-	// <%if oneOf .database "mysql|postgres" %>
-	"github.com/jmoiron/sqlx" // <%end%>
+	"github.com/microcosm-cc/bluemonday"
 )
 
 func confOrPanic() config.Config {
@@ -47,11 +49,53 @@ func IsUnderMaintenance() (bool, error) {
 	return cacheOrPanic().Exists("maintenance")
 }
 
-// <%if oneOf .database "mysql|postgres" %>
-// DatabaseResolver resolve database driver by name
-func DatabaseResolver(driver string) *sqlx.DB {
-	// <%if eq .database "mysql"%>
-	//- return MySQL(driver)
-	// <% else %>
-	return Postgres(driver) // <%end%>
-} // <%end%>
+// ValueOf get value of pointer or return fallback if value is nil
+func ValueOf[T any](value *T, fallback T) T {
+	if value == nil {
+		return fallback
+	} else {
+		return *value
+	}
+}
+
+// PointerOf get pointer of value
+func PointerOf[T any](value T) *T {
+	return &value
+}
+
+// NullableOf return nil if value is empty
+func NullableOf[T comparable](v T) *T {
+	var empty T
+	if v == empty {
+		return nil
+	}
+	return &v
+}
+
+// ClearText clear string from all html tags
+func ClearText(data string, trim bool) string {
+	res := bluemonday.StrictPolicy().Sanitize(data)
+	if trim {
+		return strings.TrimSpace(res)
+	}
+	return res
+}
+
+// SecureText secure string from script-like html tags
+func SecureText(data string, trim bool) string {
+	res := bluemonday.UGCPolicy().Sanitize(data)
+	if trim {
+		return strings.TrimSpace(res)
+	}
+	return res
+}
+
+// FuzzyPhrase generate fuzzy search phrase and numeric value for search queries
+func FuzzyPhrase(search string, fallbackNum int64) (string, int64) {
+	query := "%" + strings.ReplaceAll(regexp.QuoteMeta(search), " ", "%") + "%"
+	if num, _ := strconv.ParseInt(strings.TrimPrefix(search, "#"), 10, 64); num != 0 {
+		return query, num
+	} else {
+		return query, fallbackNum
+	}
+}

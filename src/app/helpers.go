@@ -6,12 +6,15 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gomig/crypto"
 	"github.com/gomig/jalaali"
 	"github.com/gomig/utils"
 	"github.com/google/uuid"
+	ptime "github.com/yaa110/go-persian-calendar"
 )
 
 // ConfigPath get configs path
@@ -92,6 +95,54 @@ func JTime(time time.Time, hour int, min int, sec int) time.Time {
 	jTime.SetMinute(utils.If(min == -1, jTime.Minute(), min))
 	jTime.SetSecond(utils.If(sec == -1, jTime.Second(), sec))
 	return jTime.Time()
+}
+
+// ParseJalaali parse persian date string
+func ParseJalaali(str string, h, m, s int) *time.Time {
+	isNumber := func(v string) bool { return regexp.MustCompile(`^[0-9]+$`).MatchString(v) }
+
+	// Extract digits
+	pattern := regexp.MustCompile(`[^\d]+`)
+	digits := strings.Split(pattern.ReplaceAllString(str, "-"), "-")
+
+	// Normalize time
+	now := time.Now()
+	h = utils.If(h < 0, now.Hour(), h)
+	m = utils.If(m < 0, now.Minute(), m)
+	s = utils.If(s < 0, now.Second(), s)
+
+	// Generate dates
+	if len(digits) == 3 {
+		var Y, M, D int
+		for i, digit := range digits {
+			if isNumber(digit) {
+				switch i {
+				case 0:
+					Y, _ = strconv.Atoi(digit)
+				case 1:
+					M, _ = strconv.Atoi(digit)
+				case 2:
+					D, _ = strconv.Atoi(digit)
+				}
+			}
+		}
+		if Y > 0 &&
+			M > 0 && M < 13 &&
+			D > 0 && D < 32 {
+			t := ptime.Date(Y, ptime.Month(M), D, h, m, s, 0, jalaali.TehranTz())
+			if t.Year() == Y && int(t.Month()) == M && t.Day() == D {
+				res := t.Time().UTC()
+				return &res
+			}
+		}
+	}
+	return nil
+}
+
+// FormatJalaali format time as jalaali
+func FormatJalaali(time time.Time, format string) string {
+	t := jalaali.NewTehran(time).JTime()
+	return t.Format(format)
 } // <% end %>
 
 // IsProd check if project run on production mode

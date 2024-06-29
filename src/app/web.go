@@ -6,7 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	httput "github.com/gomig/http"
 	"github.com/gomig/utils"
-	"github.com/microcosm-cc/bluemonday"
 )
 
 // SetupWeb driver
@@ -64,46 +63,4 @@ func IsLocalRequest(c *fiber.Ctx) bool {
 // MicroserviceKey get microservice key (X-MC-KEY) from to header
 func MicroserviceKey(c *fiber.Ctx) string {
 	return c.Get("X-MC-KEY", "")
-}
-
-// SecureAll secure string from all html tags
-func SecureAll(data string, trim bool) string {
-	res := bluemonday.StrictPolicy().Sanitize(data)
-	if trim {
-		return strings.TrimSpace(res)
-	}
-	return res
-}
-
-// SecureScripts secure string from script-like html tags
-func SecureScripts(data string, trim bool) string {
-	res := bluemonday.UGCPolicy().Sanitize(data)
-	if trim {
-		return strings.TrimSpace(res)
-	}
-	return res
-}
-
-// NormalizeHtmlText normalize escaped html text
-func NormalizeHtmlText(v string) string {
-	var patterns = map[string]string{
-		"&#39;":   "'",
-		"&#34;":   "\"",
-		"&#180;":  "´",
-		"&#38;":   "&",
-		"&#169;":  "©",
-		"&#186;":  "°",
-		"&#8363;": "€",
-		"&#171;":  "«",
-		"&#215;":  "x",
-		"&#8220;": "“",
-		"&#8221;": "”",
-		"&#174;":  "®",
-		"&#187;":  "»",
-		"&#8482;": "™",
-	}
-	for code, character := range patterns {
-		v = strings.ReplaceAll(v, code, character)
-	}
-	return v
 }
