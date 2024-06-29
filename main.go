@@ -31,12 +31,12 @@ func main() {
 	// Config MySQL
 	app.SetupMySQL()
 	defer app.MySQL().Close()
-	app.CLI().AddCommand(migration.MigrationCommand(app.MySQL(), "./database"))
+	app.CLI().AddCommand(migration.MigrationCommand(app.MySQL(), app.DatabasePath()))
 	// <% else if eq .database "postgres"%>
 	// Config Postgres
 	app.SetupPostgres()
 	defer app.Postgres().Close()
-	app.CLI().AddCommand(migration.MigrationCommand(app.Postgres(), "./database"))
+	app.CLI().AddCommand(migration.MigrationCommand(app.Postgres(), app.DatabasePath()))
 	// <% else if eq .database "mongo"%>
 	// Config Mongo
 	app.SetupMongoDB()
