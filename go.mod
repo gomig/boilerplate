@@ -14,7 +14,7 @@ require (
 	github.com/gomig/config v1.0.0
 	github.com/gomig/container v1.0.0
 	github.com/gomig/crypto v1.0.0
-	github.com/gomig/database/v2 v2.0.1
+	github.com/gomig/database/v2 v2.0.2
 	github.com/gomig/http v1.0.1
 	github.com/gomig/jalaali v1.0.0
 	github.com/gomig/logger v1.0.0

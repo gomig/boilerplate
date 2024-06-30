@@ -49,6 +49,8 @@ github.com/gomig/database/v2 v2.0.0 h1:D7YWCucurv/LFzKSGIitoWqVpq8HbfBgTCRks/iVw
 github.com/gomig/database/v2 v2.0.0/go.mod h1:5sdsNtjoXppSfB58b5Iv5fPxecPi/ZwJE4xmjTTL0Nw=
 github.com/gomig/database/v2 v2.0.1 h1:EJkosnPgjGHkLWKuZ6EMUwnRqfdLRSqGC7bNxalBjP4=
 github.com/gomig/database/v2 v2.0.1/go.mod h1:5sdsNtjoXppSfB58b5Iv5fPxecPi/ZwJE4xmjTTL0Nw=
+github.com/gomig/database/v2 v2.0.2 h1:QMNmGCnzWd344Oob6OwYi1WH5nGOtjUQA2bU1fIiitE=
+github.com/gomig/database/v2 v2.0.2/go.mod h1:5sdsNtjoXppSfB58b5Iv5fPxecPi/ZwJE4xmjTTL0Nw=
 github.com/gomig/http v1.0.1 h1:R7Wxs6D41ZFWmlzM9GAjKAubRhCrdZyAHJQ0h6HPVaw=
 github.com/gomig/http v1.0.1/go.mod h1:ZAGmX0me+IdCFriHBNanAbPVj4nHeX9yvaSiesX/XA8=
 github.com/gomig/jalaali v1.0.0 h1:YUgMwFtFrEeJJclFOa6WK4XW9e7XVAUNYllF18g+HKQ=
