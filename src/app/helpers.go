@@ -55,6 +55,13 @@ func NormalizeURI(url string) string {
 	return path.Join(".", url)
 }
 
+// NormalizeURL normalize url path using slashes
+func NormalizeURL(url string) string {
+	rx := regexp.MustCompile(`\/+`)
+	url = rx.ReplaceAllString(filepath.ToSlash(url), "/")
+	return "/" + strings.TrimLeft(strings.TrimLeft(url, "."), "/")
+}
+
 // FindFile find hashed file path
 //
 // return empty string if file not found
